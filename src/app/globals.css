@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: 5 12 32;
+  --color-foreground: 226 232 240;
+  --radius-pill: 9999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+.glow-ring {
+  position: relative;
+  isolation: isolate;
+}
+
+.glow-ring::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(94, 234, 212, 0.45),
+    rgba(129, 140, 248, 0.45),
+    rgba(147, 51, 234, 0.45),
+    rgba(56, 189, 248, 0.45),
+    rgba(94, 234, 212, 0.45)
+  );
+  filter: blur(18px);
+  opacity: 0.55;
+  z-index: -1;
+  transition: opacity 200ms ease;
+}
+
+.glow-ring[data-active="false"]::after {
+  opacity: 0.18;
+}
+
+.gradient-border {
+  position: relative;
+  border-radius: calc(var(--radius-pill) / 2);
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    120deg,
+    rgba(94, 234, 212, 0.6),
+    rgba(56, 189, 248, 0.7),
+    rgba(129, 140, 248, 0.9),
+    rgba(217, 70, 239, 0.6)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+.text-gradient {
+  background: linear-gradient(120deg, #60f6d2, #60a5fa, #d946ef);
+  background-clip: text;
+  color: transparent;
+}
+
+.noise-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.noise-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.1'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+.surface {
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(18px);
+}
+
+.surface-strong {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(28px);
+}
